@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\IndexObject;
 use App\Http\Controllers\Invited\Indexinveted;
+use App\Http\Controllers\ObjectMe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +33,10 @@ Route::controller(AuthController::class)->group(function () {
 //Invted
 Route::prefix('inveted')->group(function () {
     Route::get('/', Indexinveted::class);
-
 });
 
+//Object
+Route::prefix('object')->group(function () {
+    Route::get('/', IndexObject::class);
+    Route::get('/me', ObjectMe::class);
+});

@@ -24,4 +24,8 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function Object()
+    {
+        return $this->hasOne(ObjectItem::class, 'item_id');
+    }
 }

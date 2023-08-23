@@ -15,12 +15,12 @@ class category extends Model
 
     public function parentCategory()
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->belongsTo(category::class, 'parent_id');
     }
 
     public function childCategories()
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->hasMany(category::class, 'parent_id');
     }
 
     public function objectItems()
