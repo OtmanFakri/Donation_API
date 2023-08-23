@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,6 +22,8 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'invitation_code',
+        'avatar'
     ];
 
     /**
@@ -57,4 +60,16 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    //relationships
+    public function invitedUsers()
+    {
+        return $this->hasMany(InviterUser::class, 'inviter_id');
+    }
+
+    public function invitingUsers()
+    {
+        return $this->hasMany(InviterUser::class, 'user_id');
+    }
+
 }

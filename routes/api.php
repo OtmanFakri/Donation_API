@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\Invited\Indexinveted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,11 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout');
     Route::post('/refresh', 'refresh');
     Route::get('/me', 'me');
+});
+
+//Invted
+Route::prefix('inveted')->group(function () {
+    Route::get('/', Indexinveted::class);
 
 });
 

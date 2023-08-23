@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Src\Invitationcode\Factories\InverterFactory;
+use Src\Invitationcode\Repositories\Repository;
 
 class AuthController extends Controller
 {
@@ -62,14 +64,27 @@ class AuthController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
 
-        $invitationCode = Str::random(10);
 
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
-            'invitation_code' => $invitationCode ,
+            'invitation_code' =>  Str::random(10),
         ]);
+        if($request->get('code') != null){
+            $inviter = User::where('invitation_code', $request->code)->first();
+
+            if ($inviter) {
+                Repository::Create(
+                    InverterFactory::Create([
+                        'user_id' => $user->id,
+                        'inviter_id' => $inviter->id,
+                    ])
+                    );
+                $inviter->increment('Coins', 3);
+                $inviter->save();
+            }
+        }
 
 
 
