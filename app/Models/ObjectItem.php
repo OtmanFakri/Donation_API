@@ -9,13 +9,15 @@ class ObjectItem extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'condition', 'category_id',
+        'condition', 'category_id', 'item_id',
     ];
+
+
 
     //relationship
     public function item()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Item::class, 'item_id');
     }
     public function category()
     {

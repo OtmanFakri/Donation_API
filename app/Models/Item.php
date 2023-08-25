@@ -19,6 +19,10 @@ class Item extends Model
         'score_cost'
     ];
 
+    public function id(){
+        return $this->id;
+    }
+
     //relationship
     public function user()
     {

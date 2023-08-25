@@ -23,7 +23,8 @@ class ObjectMe extends Controller
         $query=ItemRepositories::ObjectMe($user)
             ->paginate(10);
 
-        return response()->json($query
+        return response()->json(
+            $query
         );
     }
 }
