@@ -19,7 +19,7 @@ class PostObjectController extends Controller
         ItemRepositories::Store($request);
 
         return response()->json([
-            'message' => 'Object has been created',
+             'Object has been created',
         ], 201);
     }
 }

@@ -25,6 +25,8 @@ class PostObjectRequests extends FormRequest
             'category_id' => ['required'
                 ,'int'
                 ,'exists:categories,id'],
+            'image_path' => 'required|array|min:1|max:4',
+            'image_path.*' => 'image|mimes:jpeg,png,jpg',
         ];
     }
 }

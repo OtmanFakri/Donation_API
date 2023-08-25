@@ -8,6 +8,8 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 use Src\Item\Factories\ItemPostFactory;
+use Src\Item\Images\Factories\PostImageFactory;
+use Src\Item\Images\Repositories\ImageRepositories;
 use Src\Item\Object\Factories\ObjectPostFactory;
 use Src\Item\Object\Repositories\ObjectRepositories;
 use Src\Item\Requests\PostObjectRequests;
@@ -23,6 +25,7 @@ class ItemRepositories implements ItemRepositoriesInterface
             ->with([
                 'Object',
                 'Object.Category',
+                'ItemImages'
             ]);
 
         return $query;
@@ -33,7 +36,7 @@ class ItemRepositories implements ItemRepositoriesInterface
         $query = QueryBuilder::for(
             $user->items()
         )
-            ->with('Object');
+            ->with(['Object','Object.Category','ItemImages']);
 
         return $query;
         // TODO: Implement ObjectMe() method.
@@ -43,11 +46,14 @@ class ItemRepositories implements ItemRepositoriesInterface
     {
         try {
             return DB::transaction(function () use ($request) {
-
                 $postItem = self::StroeItem($request);
                 $postObject = ObjectPostFactory::CreatObject($request->validated());
                 ObjectRepositories::Store($postObject,$postItem);
-            });
+
+                $refImage=ImageRepositories::save($request->file('image_path'));
+                //dd([$imageFactory]);
+                $postItem->itemImages()->createMany($refImage);
+                    });
         } catch (\Exception $e) {
             throw new Exception('Error in saving data: ' . $e->getMessage());
         }
