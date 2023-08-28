@@ -20,15 +20,21 @@ class ObjectRousource extends JsonResource
                 'availabilities'=> $this->availabilities,
                 'RelationShip' => [
                     'object' => [
-                        'id'=> $this->object->id,
-                        'condition'=> $this->object->condition,
-                        'category_id'=> $this->object->category_id,
+                        'id'=> $this->object->id ?? null,
+                        'condition'=> $this->object->condition ?? null,
+                        'category_id'=> $this->object->category_id ?? null,
                         'RelationShip' => [
                             'category' => [
-                                'id'=> $this->object->category->id,
-                                'name'=> $this->object->category->name,
-                                'parent_id'=> $this->object->category->parent_id,
+                                'id'=> $this->object->category->id ?? null,
+                                'name'=> $this->object->category->name ?? null,
+                                'parent_id'=> $this->object->category->parent_id ?? null,
                             ],
+                            'item_images' => collect($this->ItemImages)->map(function ($image) {
+                                return [
+                                    'id' => $image->id,
+                                    'path' => $image->image_path,
+                                ];
+                            })->toArray(),
                         ],
                     ],
                 ],

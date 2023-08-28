@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\IndexObject;
 use App\Http\Controllers\Invited\Indexinveted;
-use App\Http\Controllers\ObjectMe;
-use App\Http\Controllers\PostObjectController;
+use App\Http\Controllers\Object\IndexObject;
+use App\Http\Controllers\Object\ObjectMe;
+use App\Http\Controllers\Object\ObjectShow;
+use App\Http\Controllers\Object\PostObjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,5 @@ Route::prefix('object')->group(function () {
     Route::get('/', IndexObject::class);
     Route::post('/', PostObjectController::class);
     Route::get('/me', ObjectMe::class);
+    Route::get('/{item}',ObjectShow::class);
 });

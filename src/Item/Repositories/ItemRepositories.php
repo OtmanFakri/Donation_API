@@ -2,13 +2,11 @@
 
 namespace Src\Item\Repositories;
 
-use App\Jobs\StoreObjectItem;
 use App\Models\Item;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 use Src\Item\Factories\ItemPostFactory;
-use Src\Item\Images\Factories\PostImageFactory;
 use Src\Item\Images\Repositories\ImageRepositories;
 use Src\Item\Object\Factories\ObjectPostFactory;
 use Src\Item\Object\Repositories\ObjectRepositories;
@@ -65,5 +63,21 @@ class ItemRepositories implements ItemRepositoriesInterface
         $postItem = ItemPostFactory::CreatItem($request->validated());
         $response=Item::create($postItem->toarray());
         return $response;
+    }
+
+    public static function ObjectShow(Item $item)
+    {
+
+        $query=QueryBuilder::for(
+            Item::where('id', $item->id)
+        )
+            ->with([
+                'user',
+                'Object',
+                'Object.Category',
+                'ItemImages'])
+            ->firstOrFail();
+
+        return $query;
     }
 }

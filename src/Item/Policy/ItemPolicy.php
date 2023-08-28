@@ -41,7 +41,11 @@ class ItemPolicy
      */
     public function create(User $user)
     {
-        return $user->Coins >= 2;
+        if($user->Coins >= 2){
+            $user->Coins = $user->Coins-2;
+            return true;
+        }
+        return false;
     }
 
     /**

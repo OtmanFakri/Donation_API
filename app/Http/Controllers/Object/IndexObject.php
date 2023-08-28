@@ -1,12 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Object;
 
 use App\Http\Resources\ObjectRousource;
-use App\Models\Item;
-use App\Models\ObjectItem;
-use Illuminate\Http\Request;
-use Spatie\QueryBuilder\QueryBuilder;
 use Src\Item\Repositories\ItemRepositories;
 
 class IndexObject
@@ -14,6 +10,7 @@ class IndexObject
     public function __invoke()
     {
         $query = ItemRepositories::index()
+            ->latest()
             ->paginate(10);
 
         return response()->json(

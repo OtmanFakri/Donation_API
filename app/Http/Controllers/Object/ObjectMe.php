@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Object;
 
 
-use App\Models\Item;
-use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ObjectRousource;
 use Src\Item\Repositories\ItemRepositories;
 
 class ObjectMe extends Controller
@@ -21,10 +21,12 @@ class ObjectMe extends Controller
         $user = auth()->user();
 
         $query=ItemRepositories::ObjectMe($user)
+            ->latest()
             ->paginate(10);
 
         return response()->json(
-            $query
+            ObjectRousource::collection($query)
+            //$query
         );
     }
 }

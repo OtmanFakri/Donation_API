@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Object;
+use App\Http\Controllers\Controller;
 use App\Models\Item;
 use Src\Item\Repositories\ItemRepositories;
 use Src\Item\Requests\PostObjectRequests;
