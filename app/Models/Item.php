@@ -19,9 +19,7 @@ class Item extends Model
         'score_cost'
     ];
 
-    public function id(){
-        return $this->id;
-    }
+
 
     //relationship
     public function user()
@@ -34,6 +32,19 @@ class Item extends Model
     }
     public function ItemImages(){
         return $this->hasMany(ImageItem::class, 'item_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($item) {
+            // Delete related images
+            $item->ItemImages()->delete();
+
+            // Delete related object
+            $item->Object()->delete();
+        });
     }
 
 }

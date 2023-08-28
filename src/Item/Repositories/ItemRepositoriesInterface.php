@@ -9,7 +9,11 @@ use Src\Item\Requests\PostObjectRequests;
 interface ItemRepositoriesInterface
 {
     public static function index() :QueryBuilder;
-    public static function ObjectShow(Item $item) ;
+
+    public static function ObjectShow(Item $item);
+
+    public static function Objectdeleted($item) :bool;
+
     public static function ObjectMe($user) :QueryBuilder;
 
     public static function Store(PostObjectRequests $request);

@@ -80,4 +80,15 @@ class ItemRepositories implements ItemRepositoriesInterface
 
         return $query;
     }
+
+    public static function Objectdeleted($item): bool
+    {
+        try {
+            $item->delete();
+            return  true;
+        }
+        catch (\Throwable $th) {
+            return false;
+        }
+    }
 }
