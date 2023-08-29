@@ -1,15 +1,20 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\confirmOrderByBuyer;
+use App\Http\Controllers\confirmOrderBySeller;
 use App\Http\Controllers\Food\IndexFoodController;
 use App\Http\Controllers\Food\ShowFoodController;
 use App\Http\Controllers\Food\StoreFoodController;
+use App\Http\Controllers\indexOrdersReceived;
+use App\Http\Controllers\indexOrdersSent;
 use App\Http\Controllers\Invited\Indexinveted;
 use App\Http\Controllers\Object\IndexObject;
 use App\Http\Controllers\Object\ObjectDeleted;
 use App\Http\Controllers\Object\ObjectMe;
 use App\Http\Controllers\Object\ObjectShow;
 use App\Http\Controllers\Object\PostObjectController;
+use App\Http\Controllers\StoreOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,4 +61,13 @@ Route::prefix('food')->group(function () {
     //Route::get('/me', meFoodController::class);
     Route::get('/{item}', ShowFoodController::class);
     //Route::delete('/{item}',ObjectDeleted::class);
+});
+
+Route::prefix('order')->group(function () {
+    Route::post('/{item}', StoreOrder::class);
+    Route::get('/confirmOrderByBuyer/{order}', confirmOrderByBuyer::class);
+    Route::get('/confirmOrderBySeller/{order}', confirmOrderBySeller::class);
+    Route::get('/sent', indexOrdersSent::class);
+    Route::get('/received', indexOrdersReceived::class);
+
 });
