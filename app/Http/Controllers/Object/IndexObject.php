@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Object;
 
-use App\Http\Resources\ObjectRousource;
+use Src\Item\Object\Resources\ObjectRousource;
 use Src\Item\Repositories\ItemRepositories;
 
 class IndexObject

@@ -22,6 +22,7 @@ class ItemRepositories implements ItemRepositoriesInterface
         $query = QueryBuilder::for(
             Item::class
         )
+            ->has('Object')
             ->with([
                 'Object',
                 'Object.Category',
@@ -109,5 +110,18 @@ class ItemRepositories implements ItemRepositoriesInterface
         catch (\Throwable $th) {
             return false;
         }
+    }
+
+
+    public static function Testindex($relatedModels = [])
+    {
+        $query =
+            QueryBuilder::for(Item::class)
+                ->paginate(10);
+
+        foreach ($relatedModels as $model) {
+            $query->with($model);
+        }
+        return $query;
     }
 }

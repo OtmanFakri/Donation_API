@@ -21,4 +21,5 @@ interface ItemRepositoriesInterface
 
     public static function StroeItem(PostItemValueObject $request) :Item;
 
+    public static function Testindex($relatedModels = []) ;
 }
