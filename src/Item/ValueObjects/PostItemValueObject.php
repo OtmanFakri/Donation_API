@@ -13,6 +13,7 @@ class PostItemValueObject
         public bool $availabilities,
         public bool $booked,
         public string $score_cost,
+        public array $image_path = [],
     )
     {
     }
@@ -27,6 +28,7 @@ class PostItemValueObject
             'availabilities' => $this->availabilities,
             'booked' => $this->booked,
             'score_cost' => $this->score_cost,
+            'image_path' => $this->image_path,
         ];
     }
 }

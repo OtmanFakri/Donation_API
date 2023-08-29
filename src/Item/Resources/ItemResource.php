@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
-
+namespace Src\Item\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ItemResource extends JsonResource

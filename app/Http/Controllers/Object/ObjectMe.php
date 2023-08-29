@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Object;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ObjectRousource;
+use Src\Item\Object\Resources\ObjectRousource;
 use Src\Item\Repositories\ItemRepositories;
 
 class ObjectMe extends Controller

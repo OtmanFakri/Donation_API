@@ -17,7 +17,7 @@ class ItemPostFactory
             availabilities: $data['availabilities'],
             booked: $data['booked'],
             score_cost: $data['score_cost'],
-
+            image_path: $data['image_path'],
         );
     }
 

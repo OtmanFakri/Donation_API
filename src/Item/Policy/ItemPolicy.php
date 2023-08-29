@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace Src\Item\Policy;
 
 use App\Models\Item;
 use App\Models\User;
@@ -42,7 +42,8 @@ class ItemPolicy
     public function create(User $user)
     {
         if($user->Coins >= 2){
-            $user->Coins = $user->Coins-2;
+            $user->Coins = ($user->Coins) - 2;
+            $user->save();
             return true;
         }
         return false;

@@ -3,9 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Item;
-use App\Policies\ItemPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
+use Src\Item\Policy\ItemPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {

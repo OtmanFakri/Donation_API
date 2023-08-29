@@ -30,6 +30,11 @@ class Item extends Model
     {
         return $this->hasOne(ObjectItem::class, 'item_id');
     }
+
+    public function food()
+    {
+        return $this->hasOne(FoodItem::class, 'item_id');
+    }
     public function ItemImages(){
         return $this->hasMany(ImageItem::class, 'item_id');
     }

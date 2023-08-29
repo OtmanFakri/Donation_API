@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\Food\StoreFoodController;
 use App\Http\Controllers\Invited\Indexinveted;
 use App\Http\Controllers\Object\IndexObject;
 use App\Http\Controllers\Object\ObjectDeleted;
@@ -46,4 +47,7 @@ Route::prefix('object')->group(function () {
     Route::get('/{item}',ObjectShow::class);
     Route::delete('/{item}',ObjectDeleted::class);
 
+});
+Route::prefix('food')->group(function () {
+    Route::post('/', StoreFoodController::class);
 });

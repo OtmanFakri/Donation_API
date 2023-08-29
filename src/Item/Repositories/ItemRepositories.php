@@ -7,10 +7,12 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 use Src\Item\Factories\ItemPostFactory;
+use Src\Item\Images\Factories\PostImageFactory;
 use Src\Item\Images\Repositories\ImageRepositories;
 use Src\Item\Object\Factories\ObjectPostFactory;
 use Src\Item\Object\Repositories\ObjectRepositories;
 use Src\Item\Requests\PostObjectRequests;
+use Src\Item\ValueObjects\PostItemValueObject;
 
 class ItemRepositories implements ItemRepositoriesInterface
 {
@@ -44,25 +46,42 @@ class ItemRepositories implements ItemRepositoriesInterface
     {
         try {
             return DB::transaction(function () use ($request) {
-                $postItem = self::StroeItem($request);
+                $postItem = self::StroeItem(ItemPostFactory::CreatItem($request->validated()));
                 $postObject = ObjectPostFactory::CreatObject($request->validated());
                 ObjectRepositories::Store($postObject,$postItem);
 
-                $refImage=ImageRepositories::save($request->file('image_path'));
+               // $refImage=ImageRepositories::save($request->file('image_path'));
                 //dd([$imageFactory]);
-                $postItem->itemImages()->createMany($refImage);
-                    });
+                //$postItem->itemImages()->createMany($refImage);
+
+            });
         } catch (\Exception $e) {
             throw new Exception('Error in saving data: ' . $e->getMessage());
         }
 
     }
 
-    public static function StroeItem(PostObjectRequests $request): Item
+    public static function StroeItem(PostItemValueObject $request): Item
     {
-        $postItem = ItemPostFactory::CreatItem($request->validated());
-        $response=Item::create($postItem->toarray());
-        return $response;
+        try {
+            return DB::transaction(function () use ($request) {
+                //$postItem = self::StroeItem(ItemPostFactory::CreatItem($request));
+                //$postObject = ObjectPostFactory::CreatObject($request->validated());
+                //ObjectRepositories::Store($postObject,$postItem);
+
+                $postItem = ItemPostFactory::CreatItem($request->toarray());
+                $response=Item::create($postItem->toarray());
+
+                $refImage=ImageRepositories::save($request->image_path);
+                //dd([$imageFactory]);
+                $response->itemImages()->createMany($refImage);
+
+                return $response;
+
+            });
+        } catch (\Exception $e) {
+            throw new Exception('Error in saving data: ' . $e->getMessage());
+        }
     }
 
     public static function ObjectShow(Item $item)
