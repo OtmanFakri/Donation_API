@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSellerOrderConfirmationsTable extends Migration
+class CreateOwnerOrderConfirmationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSellerOrderConfirmationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('seller_order_confirmations', function (Blueprint $table) {
+        Schema::create('owner_order_confirmations', function (Blueprint $table) {
             $table->id('confirmation_id');
             $table->unsignedBigInteger('order_id');
             $table->timestamp('confirmation_date');
-            $table->string('status', 50);
+            $table->enum('status', ['accepted', 'rejected','padding'])->default('padding');
             $table->timestamps();
 
             $table->foreign('order_id')->references('order_id')->on('orders');

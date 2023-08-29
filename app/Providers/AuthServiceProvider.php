@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Item;
+use App\Models\Orders;
+use App\Policies\OrderPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Src\Item\Policy\ItemPolicy;
 
@@ -16,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Item::class => ItemPolicy::class,
+        Orders::class =>OrderPolicy::class,
 
     ];
 

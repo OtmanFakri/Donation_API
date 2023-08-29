@@ -16,16 +16,9 @@ class indexOrdersReceived extends Controller
     public function __invoke(Request $request)
     {
         $user = auth()->user();
-
-       // $ordersReceived = $user->receivedOrders()
-       //     ->with('items') // Assuming you have a relationship to retrieve the product
-       //     ->orderBy('created_at', 'desc')
-        //    ->get();
-
         $Quiry=QueryBuilder::for(
             $user->receivedOrders()
-            //->with('items')
-
+            ->with('item')
             ->orderBy('created_at', 'desc')
             ->with('customer')
         )

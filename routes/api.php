@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\confirmOrderByBuyer;
-use App\Http\Controllers\confirmOrderBySeller;
+use App\Http\Controllers\confirmOrderByCustomer;
+use App\Http\Controllers\confirmOrderByOwner;
 use App\Http\Controllers\Food\IndexFoodController;
 use App\Http\Controllers\Food\ShowFoodController;
 use App\Http\Controllers\Food\StoreFoodController;
@@ -64,9 +64,9 @@ Route::prefix('food')->group(function () {
 });
 
 Route::prefix('order')->group(function () {
-    Route::post('/{item}', StoreOrder::class);
-    Route::get('/confirmOrderByBuyer/{order}', confirmOrderByBuyer::class);
-    Route::get('/confirmOrderBySeller/{order}', confirmOrderBySeller::class);
+    Route::post('/', StoreOrder::class);
+    Route::get('/confirmOrderByCustomer/{order}', confirmOrderByCustomer::class);
+    Route::get('/confirmOrderByOwner/{order}', confirmOrderByOwner::class);
     Route::get('/sent', indexOrdersSent::class);
     Route::get('/received', indexOrdersReceived::class);
 

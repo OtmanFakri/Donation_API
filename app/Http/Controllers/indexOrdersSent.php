@@ -18,7 +18,7 @@ class indexOrdersSent extends Controller
         $user = auth()->user();
 
         $ordersSent = $user->sentOrders()
-            ->with('items') // Assuming you have a relationship to retrieve the product
+            ->with('item') // Assuming you have a relationship to retrieve the product
             ->orderBy('created_at', 'desc')
             ->get();
 

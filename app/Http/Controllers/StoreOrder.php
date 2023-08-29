@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Models\Item;
 use App\Models\Orders;
 use Illuminate\Http\Request;
+use Src\Order\Factories\PostOrderFactory;
 
 class StoreOrder extends Controller
 {
 
-    public function __invoke(Request $request, Item $item)
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+    public function __invoke(OrderRequest $request)
     {
 
-        $order = new Orders([
-            'customer_id' => 3,
-            'seller_id' => Item::find($item->id)->user_id,
-            'order_date' => now(),
-            'buyer_confirmation_status' => 'pending',
-            'seller_confirmation_status' => 'pending',
-        ]);
+        $order = new Orders(PostOrderFactory::Create($request->validated())->toarray());
+
         $order->save();
 
         return response()->json(['message' => 'Order sent successfully']);

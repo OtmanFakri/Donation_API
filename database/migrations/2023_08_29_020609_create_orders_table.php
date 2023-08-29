@@ -16,14 +16,19 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id('order_id');
             $table->unsignedBigInteger('customer_id');
-            $table->unsignedBigInteger('seller_id');
+            $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('item_id');
             $table->timestamp('order_date');
-            $table->string('buyer_confirmation_status', 50);
-            $table->string('seller_confirmation_status', 50);
+            $table->timestamp('delivery_date')->nullable();
+
+            $table->enum('customer_confirmation_status', ['accepted', 'rejected','padding'])->default('padding');
+            $table->enum('owner_confirmation_status', ['accepted', 'rejected','padding'])->default('padding');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('users');
-            $table->foreign('seller_id')->references('id')->on('users');
+            $table->foreign('owner_id')->references('id')->on('users');
+            $table->foreign('item_id')->references('id')->on('items');
+
         });
     }
 

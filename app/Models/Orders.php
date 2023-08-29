@@ -12,11 +12,13 @@ class Orders extends Model
 
     protected $fillable = [
         'customer_id',
-        'seller_id',
+        'owner_id',
+        'item_id',
         'order_date',
-        'buyer_confirmation_status',
+        'customer_confirmation_status',
         'now ',
-        'seller_confirmation_status'
+        'delivery_date',
+        'owner_confirmation_status'
     ];
 
     use HasFactory;
@@ -27,18 +29,22 @@ class Orders extends Model
         return $this->belongsTo(User::class, 'customer_id');
     }
 
-    public function seller()
+    public function owner()
     {
         return $this->belongsTo(User::class, 'seller_id');
     }
 
-    public function buyerConfirmations()
+    public function custumerConfirmations()
     {
-        return $this->hasMany(BuyerOrderConfirmation::class, 'order_id');
+        return $this->hasMany(CustomerOrderConfirmation::class, 'order_id');
     }
 
-    public function sellerConfirmations()
+    public function ownerConfirmations()
     {
-        return $this->hasMany(SellerOrderConfirmation::class, 'order_id');
+        return $this->hasMany(OwnerOrderConfirmation::class, 'order_id');
+    }
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'item_id');
     }
 }

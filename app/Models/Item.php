@@ -35,8 +35,13 @@ class Item extends Model
     {
         return $this->hasOne(FoodItem::class, 'item_id');
     }
+
     public function ItemImages(){
         return $this->hasMany(ImageItem::class, 'item_id');
+    }
+    public function orders()
+    {
+        return $this->hasMany(Orders::class, 'item_id');
     }
 
     protected static function boot()
